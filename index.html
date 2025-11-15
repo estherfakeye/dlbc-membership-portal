@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Membership Portal</title>
+  </head>
+
+  <body class="dark bg-gray-100">
+    <div class="relative flex h-screen gap-4 overflow-hidden">
+      <!-- Sidebar -->
+      <div
+        id="sidebar"
+        class="fixed inset-y-0 left-0 z-50 w-64 -translate-x-full transform p-0 md:p-4 transition-transform duration-300 md:relative md:w-fit md:translate-x-0 2xl:w-64"
+      >
+        <div
+          class="flex h-full w-full flex-col rounded-2xl bg-[#16365e] p-3 text-white 2xl:w-64 2xl:rounded-3xl"
+        >
+          <!-- Close button- mobile-->
+          <button class="ml-auto p-2 text-white md:hidden" id="close-sidebar">
+            <iconify-icon icon="mdi:close" class="text-2xl"></iconify-icon>
+          </button>
+          <div
+            class="justify start flex w-full flex-row items-center gap-2 pt-5 md:justify-center 2xl:justify-start 2xl:pt-2"
+          >
+            <img
+              src="https://dclmcloud.s3.amazonaws.com/img/dlbc-logo.svg"
+              alt="DLBC Logo"
+              class="size-10"
+            />
+            <h4 class="text-sm font-semibold tracking-wide md:hidden 2xl:block">
+              MEMBERSHIP <br />
+              PORTAL
+            </h4>
+          </div>
+          <div>
+            <nav
+              class="flex flex-col items-start gap-1 2xl:items-start 2xl:p-3 [&>a]:flex [&>a]:items-center [&>a]:gap-2 [&>a]:rounded-lg [&>a]:px-3 [&>a]:py-2 [&>a]:text-sm [&>a]:font-semibold [&>a]:tracking-tight [&>a]:text-gray-200 [&>a]:transition-colors [&>a]:hover:w-full [&>a]:hover:bg-slate-500 [&>a>span]:mt-3 md:[&>a>span]:hidden 2xl:[&>a>span]:block [&>a]:[&>span]:2xl:block"
+            >
+              <a href="/dashboard">
+                <iconify-icon
+                  class="text-2xl"
+                  icon="stash:home-light"
+                ></iconify-icon>
+                <span>Dashboard</span>
+              </a>
+              <a href="/members">
+                <iconify-icon
+                  class="text-2xl"
+                  icon="formkit:people"
+                ></iconify-icon>
+                <span>Members</span>
+              </a>
+              <a href="/id-card">
+                <iconify-icon
+                  class="text-2xl"
+                  icon="material-symbols-light:id-card-outline-rounded"
+                ></iconify-icon>
+                <span>ID Card</span>
+              </a>
+              <a href="/relocation">
+                <iconify-icon
+                  class="text-2xl"
+                  icon="majesticons:map-marker-path-line"
+                ></iconify-icon>
+                <span>Relocation</span>
+              </a>
+              <a href="/hcf">
+                <iconify-icon
+                  class="text-2xl"
+                  icon="carbon:grid"
+                ></iconify-icon>
+                <span>HCF Cells</span>
+              </a>
+            </nav>
+          </div>
+
+          <div
+            class="mt-auto flex flex-col gap-1 md:items-center 2xl:items-start 2xl:p-3 [&>a]:flex [&>a]:items-center [&>a]:gap-2 [&>a]:rounded-lg [&>a]:px-3 [&>a]:py-2 [&>a]:text-sm [&>a]:font-semibold [&>a]:tracking-tight [&>a]:text-gray-200 [&>a]:transition-colors [&>a]:hover:w-full [&>a]:hover:bg-slate-500 md:[&>a>span]:hidden 2xl:[&>a>span]:block"
+          >
+            <a href="/support">
+              <iconify-icon class="text-lg" icon="bx:support"></iconify-icon>
+              <span>Support</span>
+            </a>
+            <a href="/settings">
+              <iconify-icon
+                class="text-lg"
+                icon="fluent:settings-32-light"
+              ></iconify-icon>
+              <span>Settings</span>
+            </a>
+          </div>
+
+          <div
+            class="flex w-full flex-row items-center pb-2 pt-3 2xl:pt-5 md:justify-center 2xl:justify-between gap-2 md:gap-0 2xl:gap-2 2xl:p-3 2xl:pb-3"
+          >
+            <img
+              src="https://dclmcloud.s3.amazonaws.com/img/dlbc-logo.svg"
+              alt="DLBC Logo"
+              class="size-10 rounded-full border md:border-2"
+            />
+            <div
+              class="flex-col text-sm font-semibold tracking-tight md:hidden 2xl:flex"
+            >
+              <h5>D Developer</h5>
+              <p class="text-xs text-gray-400">@Esther</p>
+            </div>
+            <div class="ml-auto hidden w-fit 2xl:block">
+              <iconify-icon
+                class="text-lg text-gray-300"
+                icon="lucide:log-out"
+              ></iconify-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <main
+        class="flex h-full flex-1 flex-col gap-4 overflow-hidden bg-gray-100 p-5"
+      >
+        <div
+          class="flex items-center justify-between bg-gray-100 pb-0 md:justify-end"
+        >
+          <!-- Hamburger Menu Button -->
+          <button
+            class="size-fit rounded-full border-2 border-gray-300 bg-gray-200 p-3 px-2.5 py-1.5 text-2xl text-gray-700 hover:bg-gray-50 md:hidden md:shadow"
+            id="menu-toggle"
+          >
+            <iconify-icon icon="mdi:hamburger-menu"></iconify-icon>
+          </button>
+
+          <div
+            class="flex w-fit items-center gap-2 rounded-full border border-gray-300 p-2 shadow md:gap-3 md:border-2 md:p-3"
+          >
+            <button
+              class="rounded-full bg-gray-200 px-2 py-1 text-xl text-gray-700 hover:bg-gray-50 md:px-2.5 md:py-1.5 md:text-2xl"
+            >
+              <iconify-icon icon="lucide:bell"></iconify-icon>
+            </button>
+            <button
+              class="rounded-full bg-gray-200 p-2 py-1 text-xl text-gray-600 hover:bg-gray-50 md:p-2.5 md:py-1.5 md:text-2xl"
+            >
+              <iconify-icon icon="iconoir:dots-grid-3x3"></iconify-icon>
+            </button>
+            <button>
+              <img
+                src="https://dclmcloud.s3.amazonaws.com/img/dlbc-logo.svg"
+                alt="DLBC Logo"
+                class="h-9 w-9 rounded-full border border-none md:h-10 md:w-11"
+              />
+            </button>
+          </div>
+        </div>
+
+        <h1 class="text-2xl font-bold tracking-wide text-gray-900">Members</h1>
+        <div
+          class="flex flex-col justify-between gap-3 2xl:flex-row 2xl:items-center"
+        >
+          <div
+            class="flex w-full items-center gap-2.5 overflow-x-auto rounded-full border border-gray-200 px-3 py-2 whitespace-nowrap shadow md:border-2 md:p-2 2xl:w-fit"
+          >
+            <a
+              href="#"
+              class="snap-start rounded-full border border-gray-200 px-6 py-2 text-sm font-bold text-gray-700"
+            >
+              Approved Members <span class="text-gray-700">(29,359)</span>
+            </a>
+            <a
+              href="#"
+              class="snap-start rounded-full px-6 py-2 text-sm font-bold text-gray-600 transition-colors hover:bg-gray-200"
+            >
+              New Members <span class="text-gray-700">(4,982)</span>
+            </a>
+            <a
+              href="#"
+              class="snap-start rounded-full px-6 py-2 text-sm font-bold text-gray-600 transition-colors hover:bg-gray-200"
+            >
+              User Accounts <span class="text-gray-700">(0)</span>
+            </a>
+            <a
+              href="#"
+              class="snap-start rounded-full px-6 py-2 text-sm font-bold text-gray-600 transition-colors hover:bg-gray-200"
+            >
+              Revoked Members <span class="text-gray-700">(0)</span>
+            </a>
+          </div>
+
+          <div class="relative w-full sm:w-80">
+            <iconify-icon
+              icon="lucide:search"
+              class="absolute top-1/2 left-3 -translate-y-1/2 transform text-lg text-gray-400"
+            >
+            </iconify-icon>
+            <input
+              type="text"
+              placeholder="Search here..."
+              class="w-full rounded-full border border-gray-300 py-2 pr-4 pl-10 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+          </div>
+        </div>
+
+        <div
+          class="overflow-x-auto rounded-3xl border border-gray-300 bg-gray-100 2xl:border-2"
+        >
+          <table class="w-full">
+            <thead
+              class="sticky top-0 z-10 border-b border-gray-200 bg-gray-100 text-left after:absolute after:bottom-0 after:h-px after:w-full after:bg-gray-300 after:content-['']"
+            >
+              <tr
+                class="[&>th]:px-6 [&>th]:py-3 [&>th]:text-xs [&>th]:font-medium [&>th]:text-gray-500"
+              >
+                <th>S/N</th>
+                <th>Member Info</th>
+                <th>Membership ID</th>
+                <th>Email/Phone</th>
+                <th>Location</th>
+                <th>Zone/Country</th>
+                <th>State/Region</th>
+                <th>Group/District</th>
+                <th>Christian Experience</th>
+                <th class="px-6 py-3"></th>
+              </tr>
+            </thead>
+
+            <tbody class="divide-y divide-gray-300">
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm whitespace-nowrap text-gray-600">
+                  1
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center gap-3">
+                    <img
+                      src="https://dclmcloud.s3.amazonaws.com/img/dlbc-logo.svg"
+                      alt="Member Photo"
+                      class="h-10 w-10 rounded-full object-cover"
+                    />
+                    <div>
+                      <div class="font-semibold text-gray-900">
+                        Mr. Scott Flores
+                      </div>
+                      <div class="text-sm text-gray-500">Female • Active</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">DL3432307070606</div>
+                  <div class="text-gray-500">Tue, Apr 18, 2025</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">3a495f2@gmail.com</div>
+                  <div class="text-gray-500">+23481073748</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Lagos<br />Old Shomolu
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Shomolu<br />Apata
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">Not Baptized</div>
+                  <div class="text-gray-500">Nil</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <button class="text-gray-500 hover:text-gray-800">
+                    <iconify-icon
+                      icon="mdi:dots-vertical"
+                      class="text-xl"
+                    ></iconify-icon>
+                  </button>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm whitespace-nowrap text-gray-600">
+                  2
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center gap-3">
+                    <img
+                      src="https://dclmcloud.s3.amazonaws.com/img/dlbc-logo.svg"
+                      alt="Member Photo"
+                      class="h-10 w-10 rounded-full object-cover"
+                    />
+                    <div>
+                      <div class="font-semibold text-gray-900">
+                        Mrs. David Sanchez
+                      </div>
+                      <div class="text-sm text-gray-500">Female • Active</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">DL3432307070606</div>
+                  <div class="text-gray-500">Tue, Apr 18, 2025</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">3a495f2@gmail.com</div>
+                  <div class="text-gray-500">+2348104879077</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Lagos<br />Old Shomolu
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Shomolu<br />Apata
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">Not Baptized</div>
+                  <div class="text-gray-500">Nil</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <button class="text-gray-500 hover:text-gray-800">
+                    <iconify-icon
+                      icon="mdi:dots-vertical"
+                      class="text-xl"
+                    ></iconify-icon>
+                  </button>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm whitespace-nowrap text-gray-600">
+                  3
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center gap-3">
+                    <img
+                      src="https://dclmcloud.s3.amazonaws.com/img/dlbc-logo.svg"
+                      alt="Member Photo"
+                      class="h-10 w-10 rounded-full object-cover"
+                    />
+                    <div>
+                      <div class="font-semibold text-gray-900">
+                        Mr. Scott Flores
+                      </div>
+                      <div class="text-sm text-gray-500">Female • Active</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">DL3432307070606</div>
+                  <div class="text-gray-500">Tue, Apr 18, 2025</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">3a495f2@gmail.com</div>
+                  <div class="text-gray-500">+23481098476</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Lagos<br />Old Shomolu
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Shomolu<br />Apata
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">Not Baptized</div>
+                  <div class="text-gray-500">Nil</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <button class="text-gray-500 hover:text-gray-800">
+                    <iconify-icon
+                      icon="mdi:dots-vertical"
+                      class="text-xl"
+                    ></iconify-icon>
+                  </button>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm whitespace-nowrap text-gray-600">
+                  4
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center gap-3">
+                    <img
+                      src="https://dclmcloud.s3.amazonaws.com/img/dlbc-logo.svg"
+                      alt="Member Photo"
+                      class="h-10 w-10 rounded-full object-cover"
+                    />
+                    <div>
+                      <div class="font-semibold text-gray-900">
+                        Mr. Scott Flores
+                      </div>
+                      <div class="text-sm text-gray-500">Female • Active</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">DL3432307070606</div>
+                  <div class="text-gray-500">Tue, Apr 18, 2025</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">3a495f2@gmail</div>
+                  <div class="text-gray-500">+2348108643022</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Lagos<br />Old Shomolu
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Shomolu<br />Apata
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">Not Baptized</div>
+                  <div class="text-gray-500">Nil</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <button class="text-gray-500 hover:text-gray-800">
+                    <iconify-icon
+                      icon="mdi:dots-vertical"
+                      class="text-xl"
+                    ></iconify-icon>
+                  </button>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm whitespace-nowrap text-gray-600">
+                  5
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center gap-3">
+                    <img
+                      src="https://dclmcloud.s3.amazonaws.com/img/dlbc-logo.svg"
+                      alt="Member Photo"
+                      class="h-10 w-10 rounded-full object-cover"
+                    />
+                    <div>
+                      <div class="font-semibold text-gray-900">
+                        Mr. Scott Flores
+                      </div>
+                      <div class="text-sm text-gray-500">Female • Active</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">DL3432307070606</div>
+                  <div class="text-gray-500">Tue, Apr 18, 2025</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">3a495f2@gmail.com</div>
+                  <div class="text-gray-500">+2348108643022</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Lagos<br />Old Shomolu
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Shomolu<br />Apata
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">Not Baptized</div>
+                  <div class="text-gray-500">Nil</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <button class="text-gray-500 hover:text-gray-800">
+                    <iconify-icon
+                      icon="mdi:dots-vertical"
+                      class="text-xl"
+                    ></iconify-icon>
+                  </button>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm whitespace-nowrap text-gray-600">
+                  6
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center gap-3">
+                    <img
+                      src="https://dclmcloud.s3.amazonaws.com/img/dlbc-logo.svg"
+                      alt="Member Photo"
+                      class="h-10 w-10 rounded-full object-cover"
+                    />
+                    <div>
+                      <div class="font-semibold text-gray-900">
+                        Mr. Scott Flores
+                      </div>
+                      <div class="text-sm text-gray-500">Female • Active</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">DL3432307070606</div>
+                  <div class="text-gray-500">Tue, Apr 18, 2025</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">3a495f2@gmail.com</div>
+                  <div class="text-gray-500">+2348107599877</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Lagos<br />Old Shomolu
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Shomolu<br />Apata
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">Not Baptized</div>
+                  <div class="text-gray-500">Nil</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <button class="text-gray-500 hover:text-gray-800">
+                    <iconify-icon
+                      icon="mdi:dots-vertical"
+                      class="text-xl"
+                    ></iconify-icon>
+                  </button>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm whitespace-nowrap text-gray-600">
+                  7
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center gap-3">
+                    <img
+                      src="https://dclmcloud.s3.amazonaws.com/img/dlbc-logo.svg"
+                      alt="Member Photo"
+                      class="h-10 w-10 rounded-full object-cover"
+                    />
+                    <div>
+                      <div class="font-semibold text-gray-900">
+                        Mr. Scott Flores
+                      </div>
+                      <div class="text-sm text-gray-500">Female • Active</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">DL3432307070606</div>
+                  <div class="text-gray-500">Tue, Apr 18, 2025</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">3a495f2@gmail.com</div>
+                  <div class="text-gray-500">+2348107645399</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Lagos<br />Old Shomolu
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Shomolu<br />Apata
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">Not Baptized</div>
+                  <div class="text-gray-500">Nil</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <button class="text-gray-500 hover:text-gray-800">
+                    <iconify-icon
+                      icon="mdi:dots-vertical"
+                      class="text-xl"
+                    ></iconify-icon>
+                  </button>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm whitespace-nowrap text-gray-600">
+                  8
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center gap-3">
+                    <img
+                      src="https://dclmcloud.s3.amazonaws.com/img/dlbc-logo.svg"
+                      alt="Member Photo"
+                      class="h-10 w-10 rounded-full object-cover"
+                    />
+                    <div>
+                      <div class="font-semibold text-gray-900">
+                        Mr. Samuel Chinedu
+                      </div>
+                      <div class="text-sm text-gray-500">Male • Active</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">DL3432307070606</div>
+                  <div class="text-gray-500">Tue, Apr 18, 2025</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">3a495f2@gmail.com</div>
+                  <div class="text-gray-500">+2348103797483</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Lagos<br />Old Shomolu
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Shomolu<br />Apata
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">Not Baptized</div>
+                  <div class="text-gray-500">Nil</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <button class="text-gray-500 hover:text-gray-800">
+                    <iconify-icon
+                      icon="mdi:dots-vertical"
+                      class="text-xl"
+                    ></iconify-icon>
+                  </button>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm whitespace-nowrap text-gray-600">
+                  9
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center gap-3">
+                    <img
+                      src="https://dclmcloud.s3.amazonaws.com/img/dlbc-logo.svg"
+                      alt="Member Photo"
+                      class="h-10 w-10 rounded-full object-cover"
+                    />
+                    <div>
+                      <div class="font-semibold text-gray-900">
+                        Mr. Samuel Chinedu
+                      </div>
+                      <div class="text-sm text-gray-500">Male • Active</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">DL3432307070606</div>
+                  <div class="text-gray-500">Tue, Apr 18, 2025</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">3a495f2@gmail.com</div>
+                  <div class="text-gray-500">+2348103797483</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Lagos<br />Old Shomolu
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Shomolu<br />Apata
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">Not Baptized</div>
+                  <div class="text-gray-500">Nil</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <button class="text-gray-500 hover:text-gray-800">
+                    <iconify-icon
+                      icon="mdi:dots-vertical"
+                      class="text-xl"
+                    ></iconify-icon>
+                  </button>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm whitespace-nowrap text-gray-600">
+                  10
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center gap-3">
+                    <img
+                      src="https://dclmcloud.s3.amazonaws.com/img/dlbc-logo.svg"
+                      alt="Member Photo"
+                      class="h-10 w-10 rounded-full object-cover"
+                    />
+                    <div>
+                      <div class="font-semibold text-gray-900">
+                        Mr. Samuel Chinedu
+                      </div>
+                      <div class="text-sm text-gray-500">Male • Active</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">DL3432307070606</div>
+                  <div class="text-gray-500">Tue, Apr 18, 2025</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">3a495f2@gmail.com</div>
+                  <div class="text-gray-500">+2348103797483</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Lagos<br />Old Shomolu
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Shomolu<br />Apata
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">Not Baptized</div>
+                  <div class="text-gray-500">Nil</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <button class="text-gray-500 hover:text-gray-800">
+                    <iconify-icon
+                      icon="mdi:dots-vertical"
+                      class="text-xl"
+                    ></iconify-icon>
+                  </button>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm whitespace-nowrap text-gray-600">
+                  11
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center gap-3">
+                    <img
+                      src="https://dclmcloud.s3.amazonaws.com/img/dlbc-logo.svg"
+                      alt="Member Photo"
+                      class="h-10 w-10 rounded-full object-cover"
+                    />
+                    <div>
+                      <div class="font-semibold text-gray-900">
+                        Mr. Samuel Chinedu
+                      </div>
+                      <div class="text-sm text-gray-500">Male • Active</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">DL3432307070606</div>
+                  <div class="text-gray-500">Tue, Apr 18, 2025</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">3a495f2@gmail.com</div>
+                  <div class="text-gray-500">+2348103797483</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Lagos<br />Old Shomolu
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Shomolu<br />Apata
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">Not Baptized</div>
+                  <div class="text-gray-500">Nil</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <button class="text-gray-500 hover:text-gray-800">
+                    <iconify-icon
+                      icon="mdi:dots-vertical"
+                      class="text-xl"
+                    ></iconify-icon>
+                  </button>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm whitespace-nowrap text-gray-600">
+                  12
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center gap-3">
+                    <img
+                      src="https://dclmcloud.s3.amazonaws.com/img/dlbc-logo.svg"
+                      alt="Member Photo"
+                      class="h-10 w-10 rounded-full object-cover"
+                    />
+                    <div>
+                      <div class="font-semibold text-gray-900">
+                        Mr. Samuel Chinedu
+                      </div>
+                      <div class="text-sm text-gray-500">Male • Active</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">DL3432307070606</div>
+                  <div class="text-gray-500">Tue, Apr 18, 2025</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">3a495f2@gmail.com</div>
+                  <div class="text-gray-500">+2348103797483</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Nigeria
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Lagos<br />Old Shomolu
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                  Shomolu<br />Apata
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="font-medium text-gray-800">Not Baptized</div>
+                  <div class="text-gray-500">Nil</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <button class="text-gray-500 hover:text-gray-800">
+                    <iconify-icon
+                      icon="mdi:dots-vertical"
+                      class="text-xl"
+                    ></iconify-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div
+          class="ml-auto flex w-fit items-center gap-4 rounded-full border-2 border-gray-300 p-4 [&>button]:flex [&>button]:size-5 [&>button]:items-center [&>button]:justify-center [&>button]:text-lg [&>button]:hover:bg-gray-50"
+        >
+          <button class="">
+            <iconify-icon icon="radix-icons:double-arrow-left"></iconify-icon>
+          </button>
+          <button>
+            <iconify-icon icon="carbon:chevron-left"></iconify-icon>
+          </button>
+          <button class="text-sm text-gray-700">1</button>
+          <button>
+            <iconify-icon icon="carbon:chevron-right"></iconify-icon>
+          </button>
+          <button>
+            <iconify-icon icon="radix-icons:double-arrow-right"></iconify-icon>
+          </button>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
