@@ -1,3 +1,4 @@
+import './style.css' 
 import "iconify-icon";
 
 const menuToggle = document.getElementById("menu-toggle");
